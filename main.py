@@ -1,4 +1,5 @@
 import pygame 
+import sys
 from constants import * 
 from player import *
 from asteroid import *
@@ -35,12 +36,16 @@ def main():
         
         for object in updatable:
             object.update(dt)
-        
+            
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over")
+                sys.exit()
+                
         for object in drawable:
             object.draw(screen)
         
         pygame.display.flip()
-        
         #limit the framerate to 60FPS
         tick = time_clock.tick(60)
         dt = tick / 1000
